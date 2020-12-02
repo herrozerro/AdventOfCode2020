@@ -4,16 +4,26 @@ using System.Text;
 
 namespace AdventOfCode2020
 {
-    public static class Day14
+    public static class Day12
     {
         public static void RunDay()
         {
-            Console.WriteLine("Day 14");
+            Console.WriteLine("Day 12");
 
 
 
             Console.WriteLine("**************");
             Console.WriteLine(Environment.NewLine);
+        }
+
+        public static void Part1()
+        {
+
+        }
+
+        public static void Part2()
+        {
+
         }
     }
 }
