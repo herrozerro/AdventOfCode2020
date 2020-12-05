@@ -9,7 +9,7 @@ namespace AdventOfCode2020
             Console.WriteLine("Hello World!");
 
             //Day01.RunDay();
-            Day04.RunDay();
+            Day05.RunDay();
         }
     }
 }
