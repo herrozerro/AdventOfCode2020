@@ -21,6 +21,11 @@ namespace AdventOfCode2020
             return lines;
         }
 
+        internal static IEnumerable<object> GetLinesFromFile()
+        {
+            throw new NotImplementedException();
+        }
+
         public static int[] SplitIntArrayFromString(this string strArray, char delimiter)
         {
             return strArray.Split(delimiter).Select<string, int>(int.Parse).ToArray();

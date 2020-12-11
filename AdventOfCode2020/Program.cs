@@ -16,9 +16,9 @@ namespace AdventOfCode2020
             //Day06.RunDay();
             //Day07.RunDay();
             //Day08.RunDay();
-            Day09.RunDay();
+            //Day09.RunDay();
             //Day10.RunDay();
-            //Day11.RunDay();
+            Day11.RunDay();
             //Day12.RunDay();
             //Day13.RunDay();
             //Day14.RunDay();
