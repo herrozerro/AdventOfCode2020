@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace AdventOfCode2020
@@ -10,8 +11,8 @@ namespace AdventOfCode2020
         {
             Console.WriteLine("Day 12");
 
-            Part1();
-
+            //Part1();
+            Part2();
             Console.WriteLine("**************");
             Console.WriteLine(Environment.NewLine);
         }
@@ -66,7 +67,7 @@ namespace AdventOfCode2020
                                 y -= movement;
                                 Console.Write($"Moved Forward South {movement} ");
                                 break;
-                            case 360:
+                            case 270:
                                 x -= movement;
                                 Console.Write($"Moved Forward West {movement} ");
                                 break;
@@ -108,9 +109,74 @@ namespace AdventOfCode2020
             }
         }
 
+        public class Waypoint
+        {
+            public PointF Location { get; set; }
+
+            public void MoveWaypoint(int x, int y)
+            {
+                Location = new PointF(Location.X + x, Location.Y + y);
+            }
+
+            public void RotatePoint(float angle)
+            {
+                var a = angle * System.Math.PI / 180.0;
+                float cosa = (float)Math.Cos(a);
+                float sina = (float)Math.Sin(a);
+                PointF newPoint = new PointF((Location.X * cosa - Location.Y * sina), (Location.X * sina + Location.Y * cosa));
+                Location = newPoint;
+            }
+
+        }
+
         public static void Part2()
         {
+            var lines = Utilities.GetLinesFromFile("day12.txt");
 
+            int x = 0;
+            int y = 0;
+            Waypoint waypoint = new()
+            {
+                Location = new PointF(10, 1)
+            };
+
+            foreach (var line in lines)
+            {
+                int movement = int.Parse(line[1..]);
+                switch (line[0])
+                {
+                    case 'N':
+                        waypoint.MoveWaypoint(0, movement);
+                        Console.Write($"Moved North {movement} ");
+                        break;
+                    case 'S':
+                        waypoint.MoveWaypoint(0, movement*-1);
+                        Console.Write($"Moved South {movement} ");
+                        break;
+                    case 'E':
+                        waypoint.MoveWaypoint(movement,0);
+                        Console.Write($"Moved East {movement} ");
+                        break;
+                    case 'W':
+                        waypoint.MoveWaypoint(movement * -1,0);
+                        Console.Write($"Moved West {movement} ");
+                        break;
+                    case 'L':
+                        waypoint.RotatePoint(movement);
+                        break;
+                    case 'R':
+                        waypoint.RotatePoint(movement * -1);
+                        break;
+                    case 'F':
+                        x += (int)waypoint.Location.X * movement;
+                        y += (int)waypoint.Location.Y * movement;
+                        break;
+                    default:
+                        break;
+                }
+                Console.WriteLine($"Current Position: X:{x}, Y:{y}");
+            }
+            Console.WriteLine(Math.Abs(x) + Math.Abs(y));
         }
     }
 }
