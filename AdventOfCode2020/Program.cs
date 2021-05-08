@@ -24,7 +24,7 @@ namespace AdventOfCode2020
             //Day14.RunDay();
             //Day15.RunDay();
             //Day16.RunDay();
-            Day17.RunDay();
+            Day17Duex.RunDay();
             //Day18.RunDay();
             //Day19.RunDay();
             //Day20.RunDay();
