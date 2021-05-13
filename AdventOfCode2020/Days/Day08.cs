@@ -86,7 +86,6 @@ namespace AdventOfCode2020
                     int accum = 0;
                     int linenumber = 0;
                     Dictionary<int, int> linesused = new();
-                    bool stop = false;
 
                     while (true)
                     {

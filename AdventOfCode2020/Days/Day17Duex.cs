@@ -21,60 +21,7 @@ namespace AdventOfCode2020
 
         public static void Part1()
         {
-            var lines = Utilities.GetLinesFromFile("day17.txt");
-            var cubes = new List<conwaycube3d>();
 
-
-            for (int i = -15; i < 15; i++)
-            {
-                for (int j = -15; j < 15; j++)
-                {
-                    for (int k = -15; k < 15; k++)
-                    {
-                        cubes.Add(new conwaycube3d() { X = i, Y = j, Z = k, IsActive = false, grid = cubes });
-                    }
-                }
-            }
-
-            for (int i = 0; i < lines.Length; i++)
-            {
-                for (int j = 0; j < lines[i].Length; j++)
-                {
-                    var cube = cubes.First(x => x.Z == 0 && x.X == i && x.Y == j);
-                    cube.IsActive = lines[i][j] == '#';
-                }
-            }
-
-            for (int i = 0; i < 6; i++)
-            {
-                var list = new List<Task>();
-                foreach (var cube in cubes)
-                {
-                    var t = new Task(() =>
-                    {
-                        cube.GetNextState();
-                    });
-                    list.Add(t);
-                    t.Start();
-                }
-                Task.WaitAll(list.ToArray());
-
-                list = new List<Task>();
-                foreach (var cube in cubes)
-                {
-                    var t = new Task(() =>
-                    {
-                        cube.Update();
-                    });
-                    list.Add(t);
-                    t.Start();
-                }
-                Task.WaitAll(list.ToArray());
-
-                Console.WriteLine(cubes.Count(x => x.IsActive));
-            }
-
-            Console.WriteLine(cubes.Count(x => x.IsActive));
         }
 
         public static void Part2()
@@ -191,78 +138,6 @@ namespace AdventOfCode2020
             foreach (var item in addlist)
             {
                 cubes.Add(item);
-            }
-        }
-
-        public class conwaycube3d
-        {
-
-            public int X { get; set; }
-            public int Y { get; set; }
-            public int Z { get; set; }
-            public int w { get; set; }
-
-            public bool IsActive { get; set; }
-
-            protected bool NextState { get; set; }
-
-            public List<conwaycube3d> grid { get; set; }
-
-            public virtual void GetNextState()
-            {
-                var neighboors = new List<(int, int, int)>();
-
-                var activeneighbors = 0;
-
-                for (int i = -1; i < 2; i++)
-                {
-                    for (int j = -1; j < 2; j++)
-                    {
-                        for (int k = -1; k < 2; k++)
-                        {
-                            if (!(i == 0 && j == 0 && k == 0))
-                            {
-                                neighboors.Add((X + i, Y + j, Z + k));
-                            }
-                        }
-                    }
-                }
-
-                foreach (var n in neighboors)
-                {
-                    if (grid.FirstOrDefault(x => x.X == n.Item1 && x.Y == n.Item2 && x.Z == n.Item3)?.IsActive == true)
-                    {
-                        activeneighbors++;
-                    }
-                }
-
-                if (IsActive)
-                {
-                    if (activeneighbors == 2 || activeneighbors == 3)
-                    {
-                        NextState = true;
-                    }
-                    else
-                    {
-                        NextState = false;
-                    }
-                }
-                else
-                {
-                    if (activeneighbors == 3)
-                    {
-                        NextState = true;
-                    }
-                    else
-                    {
-                        NextState = false;
-                    }
-                }
-            }
-
-            public void Update()
-            {
-                IsActive = NextState;
             }
         }
     }
